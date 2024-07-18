@@ -1,0 +1,8 @@
+.venv
+.env
+*.pyc
+*.zip
+*.pdf
+*.pem
+*.DS_Store
+data/
