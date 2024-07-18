@@ -1,0 +1,9 @@
+openai:
+  token: $OPENAI_API_KEY
+
+azure_ai_search:
+  endpoint: 
+  api_key: $AZURE_SEARCH_API_KEY
+  embedding_model: 'text-embedding-3-small'
+  index_name: 
+  api_version: '2023-11-01'
