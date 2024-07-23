@@ -90,21 +90,10 @@ class SQLDatabaseAgent():
         return full_prompt
 
     def get_answer(self, input_message):
-        # prompt_val = self.full_prompt.invoke(
-        #     {
-        #         "input": input_message,
-        #         "top_k": 5,
-        #         "dialect": "SQLite",
-        #         "agent_scratchpad": [],
-        #     }
-        # )
-
         return self.agent_with_chat_history.invoke(
             {
                 "input": input_message
             },
-            # This is needed because in most real world scenarios, a session id is needed
-            # It isn't really used here because we are using a simple in memory ChatMessageHistory
             config={"configurable": {"session_id": "<foo>"}},
         )
 
