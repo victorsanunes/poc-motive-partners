@@ -25,12 +25,13 @@ examples = [
     '''}
 ]
 
-def create_sql_database_agent(messages_history, db):
+def create_sql_database_agent(messages_history, db, toolkit):
     sql_database_agent = SQLDatabaseAgent(
         db=db,
         llm=llm,
         examples=examples,
-        message_history=messages_history
+        message_history=messages_history,
+        toolkit=toolkit
     )
 
     return sql_database_agent

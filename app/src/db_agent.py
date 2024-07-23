@@ -13,9 +13,10 @@ from langchain_community.chat_message_histories import ChatMessageHistory
 from langchain_core.runnables.history import RunnableWithMessageHistory
 
 class SQLDatabaseAgent():
-    def __init__(self, db, llm, examples, message_history=None):
+    def __init__(self, db, llm, examples, message_history=None, toolkit=None):
         self.db = db
         self.llm = llm
+        self.toolkit = toolkit
         self.system_prefix  = """
             You are an agent designed to interact with a SQL database.
             Given an input question, create a syntactically correct {dialect} query to run, then look at the results of the query and return the answer.
@@ -40,13 +41,24 @@ class SQLDatabaseAgent():
             self.message_history = ChatMessageHistory()
         else:
             self.message_history = message_history
-        self.agent_executor = create_sql_agent(
-            llm, 
-            db=db, 
-            prompt=self.full_prompt, 
-            agent_type="openai-tools", 
-            verbose=True
-        )
+
+        if toolkit:
+            self.agent_executor = create_sql_agent(
+                llm, 
+                prompt=self.full_prompt, 
+                agent_type="openai-tools", 
+                verbose=True,
+                toolkit=self.toolkit
+            )
+        else:
+            self.agent_executor = create_sql_agent(
+                llm, 
+                prompt=self.full_prompt, 
+                agent_type="openai-tools", 
+                verbose=True,
+                db=self.db
+            )
+
         self.agent_with_chat_history = RunnableWithMessageHistory(
             self.agent_executor,
             lambda session_id: self.message_history,
