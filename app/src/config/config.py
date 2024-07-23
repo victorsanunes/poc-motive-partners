@@ -16,7 +16,7 @@ ROOT_PATH = SRC_PATH.parent.parent.parent
 DATA_PATH = ROOT_PATH / 'data'
 RAW_DATA_PATH = DATA_PATH / 'raw'
 PROCESSED_DATA_PATH = DATA_PATH / 'processed'
-
+ARTIFACTS_PATH = DATA_PATH / 'artifacts'
 # Create paths if nos exitst
 # for p in [
 #     DATA_PATH, 
